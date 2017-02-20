@@ -38,7 +38,7 @@ class Git_Commit_Suicide:
                 e = sys.exc_info()[0]
                 print('Hmm, I got an error here. Maybe this is the wrong folder?', '\nError: ', e)
                 os._exit(1)
-            if 'up-to-date' in self.status:
+            if 'up-to-date' in self.status and not 'not staged' in self.status and not 'to be committed' in self.status:
                 print('Your code appears to be up to date with your last commit. Checking remotes...')
                 self.remotes = self.system_call('git remote', True)
                 #print(self.remotes)
@@ -54,7 +54,7 @@ class Git_Commit_Suicide:
                 #print(self.remoteslist)
                 diffs = []
                 for i in self.remoteslist:
-                    #print('Checking remote:', i)
+                    print('Checking remote:', i)
                     diffs.append(self.system_call('git --no-pager diff --raw master ' + i + '/master'))
                 #print(diffs)
                 for i in range(len(diffs)):
@@ -70,8 +70,19 @@ class Git_Commit_Suicide:
                                 done = True
                             else:
                                 print('Please type yes/no')
-            elif 'unstaged' in self.status:
-                print('You may have some unstaged changes.')
+                #print(self.remoteslist)
+                if len(self.remoteslist) == 0:
+                    print('No tracked remotes. Looks like you\'re good to go!')
+                else:
+                    print('All remotes checked, found no changes. My work here is done!')
+            elif 'not staged' in self.status:
+                print('You may have some unstaged changes. Try git add <file changed> to stage.')
+            elif 'behind' in self.status:
+                print('Your code is behind what git thinks is your code. Weird, huh?')
+            elif 'to be committed' in self.status:
+                print('So, you\'ve made some changes, but you haven\'t committed them yet. Use git commit -m "commit message" to do so.')
+            elif 'ahead' in self.status:
+                print('Staged, committed and ready to go! All that\'s left now is to push. Hint: git push usually works.')
             else:
                 print('That\'s pretty much it.')
 
