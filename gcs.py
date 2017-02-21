@@ -34,18 +34,6 @@ class Git_Commit_Suicide:
             # Check if git exists and get status
             self.git_present = False
             self.returned_status = 'FAIL'
-            try:
-                if 'fatal: Not a git repository (or any of the parent directories): .git' in str(self.system_call('git status')):
-                    print('Found no git data')
-                    #os._exit(1)
-                else:
-                    print('Found git data!')
-                    self.git_present = True
-                    self.returned_status = str(self.system_call('git status'))
-            except:
-                e = sys.exc_info()[0]
-                print('Hmm, I got an error here. Maybe this is the wrong folder?', '\nError: ', e)
-                os._exit(1)
             #print(self.arguments[0])
             if len(self.arguments) == 0:
                 #print('Checking status...')
@@ -60,6 +48,18 @@ class Git_Commit_Suicide:
         except Exception:
             traceback.print_exc(file=sys.stdout)
     def status(self):
+        try:
+            if 'fatal: Not a git repository (or any of the parent directories): .git' in str(self.system_call('git status')):
+                print('Found no git data')
+                #os._exit(1)
+            else:
+                print('Found git data!')
+                self.git_present = True
+                self.returned_status = str(self.system_call('git status'))
+        except:
+            e = sys.exc_info()[0]
+            print('Hmm, I got an error here. Maybe this is the wrong folder?', '\nError: ', e)
+            os._exit(1)
         if ('up-to-date' in self.returned_status or 'nothing to commit' in self.returned_status) and not 'not staged' in self.returned_status and not 'to be committed' in self.returned_status:
             print('Your code appears to be up to date with your last commit. Checking remotes...')
             self.remotes = self.system_call('git remote', True)
