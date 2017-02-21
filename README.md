@@ -18,5 +18,27 @@ That goes in whatever file you're loading at login.
 ### Windows
 Why would you want to use windows for git projects? Well, just run the python script (but it won't work, i'm warning you), get fed up and install linux. I mean seriously, unless you're gaming there's no reason to have a pc.
 
+## Usage:
+Type ''gcs''
+It will check your status and guide you through the process of *gitting*
+Here's what it would look like after you just changed something in the repo:
+```
+bash-3.2$ gcs
+Found git data!
+You may have some unstaged changes. Stage them? [y/n]: y
+Staged all changes!
+Commit these changes? [y/n]: y
+Please enter the commit message for this action: Update README with message: Update README with message: Update README with message...
+Checking status...
+Found git data!
+Your code appears to be up to date with your last commit. Checking remotes...
+Checking remote: origin
+Differences found between local and remote: origin
+Push these changes? [y/n]: y
+All remotes checked, found no changes. My work here is done!
+bash-3.2$ Yay!
+```
+Yes the messages are cheesy. Deal with it.
+
 ## Modification:
 I really don't care how much you modify this.
