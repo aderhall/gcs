@@ -13,11 +13,11 @@ Note: gcs does not do everything git does. It will not replace git. Just help yo
 ## Installation:
 ### Linux/OSX
 For now, all the 'installation' is is putting an alias in your bashrc/profile/whatever that sets gcs equal to "python3 ~/gcs/gcs.py"
-For reference, its:
-```
+One way to do this (single command):
+```bash
 cd && curl -O https://raw.githubusercontent.com/aderhall/gcs/master/gcs.py && touch ~/.bash_profile && echo ";alias gcs=\"python3 ~/gcs/gcs.py\"" | cat >> ~/.bash_profile && cd - && source ~/.bash_profile;
 ```
-That will automatically set it up. Once done, type gcs to use the command.
+That should automatically set it up. Once done, type gcs to use the command.
 
 ### Windows
 Why would you want to use windows for git projects? Well, just run the python script (but it won't work, i'm warning you), get fed up and install linux. I mean seriously, unless you're gaming there's no reason to have a pc.
